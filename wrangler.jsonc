@@ -11,14 +11,12 @@
     "binding": "BROWSER",
     "remote": true
   },
-  "r2_buckets": {
-    "bindings": [
-      {
-        "binding": "BUCKET",
-        "bucket_name": "agent-builder-storage"
-      }
-    ]
-  },
+  "r2_buckets": [
+    {
+      "binding": "BUCKET",
+      "bucket_name": "agent-builder-storage"
+    }
+  ],
   "durable_objects": {
     "bindings": [
       {
