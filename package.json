@@ -1,0 +1,23 @@
+{
+  "name": "ai-website-builder-agent",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --remote",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail"
+  },
+  "dependencies": {
+    "@cloudflare/ai-chat": "^0.1.0",
+    "agents": "^0.3.0",
+    "ai": "^5.0.0",
+    "workers-ai-provider": "^3.0.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0",
+    "typescript": "^5.5.0",
+    "@cloudflare/workers-types": "^4.20250101.0"
+  }
+}
