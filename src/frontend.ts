@@ -165,9 +165,12 @@ export function renderFrontend(): string {
     const wsUrl = (location.protocol === "https:" ? "wss:" : "ws:") + "//" + location.host + "/agents/SITE_BUILDER/session";
     let ws;
     function connect() {
+      usageBarEl.textContent = "📊 接続中...";
       ws = new WebSocket(wsUrl);
+      ws.onopen = () => { usageBarEl.textContent = "📊 接続済み ✅"; };
+      ws.onerror = (e) => { usageBarEl.textContent = "📊 接続エラー ❌"; console.error("WS error:", e); };
       ws.onmessage = (event) => { try { handleMessage(JSON.parse(event.data)); } catch(e) {} };
-      ws.onclose = () => { setTimeout(connect, 2000); };
+      ws.onclose = () => { usageBarEl.textContent = "📊 切断・再接続中..."; setTimeout(connect, 2000); };
     }
     function handleMessage(data) {
       if (data.type === "text-delta") appendTextDelta(data.textDelta);
@@ -225,7 +228,11 @@ export function renderFrontend(): string {
     }
     function sendMessage() {
       const text = inputEl.value.trim();
-      if (!text || !ws || ws.readyState !== WebSocket.OPEN) return;
+      if (!text) return;
+      if (!ws || ws.readyState !== WebSocket.OPEN) {
+        usageBarEl.textContent = "📊 接続されていません。少し待ってから再試行してください。";
+        return;
+      }
       const empty = messagesEl.querySelector(".empty"); if (empty) empty.remove();
       const d = document.createElement("div"); d.className = "msg user"; d.textContent = text;
       messagesEl.appendChild(d);
