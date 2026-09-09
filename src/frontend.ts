@@ -162,7 +162,7 @@ export function renderFrontend(): string {
       }
     }
     function fillPrompt(text) { inputEl.value = text; inputEl.focus(); }
-    const wsUrl = (location.protocol === "https:" ? "wss:" : "ws:") + "//" + location.host + "/agents/SITE_BUILDER/session";
+    const wsUrl = (location.protocol === "https:" ? "wss:" : "ws:") + "//" + location.host + "/agents/site-builder-agent/session";
     let ws;
     function connect() {
       usageBarEl.textContent = "📊 接続中...";
